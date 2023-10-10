@@ -1,27 +1,11 @@
-# wxcloudrun-flask
+# RESUME-OPTIMIZE-SERVICE
+
 [![GitHub license](https://img.shields.io/github/license/WeixinCloud/wxcloudrun-express)](https://github.com/WeixinCloud/wxcloudrun-express)
 ![GitHub package.json dependency version (prod)](https://img.shields.io/badge/python-3.7.3-green)
 
-微信云托管 python Flask 框架模版，实现简单的计数器读写接口，使用云托管 MySQL 读写、记录计数值。
-
-![](https://qcloudimg.tencent-cloud.cn/raw/be22992d297d1b9a1a5365e606276781.png)
-
-
-## 快速开始
-前往 [微信云托管快速开始页面](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/basic/guide.html)，选择相应语言的模板，根据引导完成部署。
-
-## 本地调试
-下载代码在本地调试，请参考[微信云托管本地调试指南](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/guide/debug/)
-
-## 实时开发
-代码变动时，不需要重新构建和启动容器，即可查看变动后的效果。请参考[微信云托管实时开发指南](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/guide/debug/dev.html)
-
-## Dockerfile最佳实践
-请参考[如何提高项目构建效率](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/scene/build/speed.html)
-
 ## 目录结构说明
 
-~~~
+```
 .
 ├── Dockerfile dockerfile       dockerfile
 ├── README.md README.md         README.md文件
@@ -36,9 +20,7 @@
     ├── response.py             响应结构构造
     ├── templates               模版目录,包含主页index.html文件
     └── views.py                执行响应的代码所在模块  代码逻辑处理主要地点  项目大部分代码在此编写
-~~~
-
-
+```
 
 ## 服务 API 文档
 
@@ -69,8 +51,6 @@
 ```
 curl https://<云托管服务域名>/api/count
 ```
-
-
 
 ### `POST /api/count`
 
@@ -111,13 +91,13 @@ curl -X POST -H 'content-type: application/json' -d '{"action": "inc"}' https://
 ```
 
 ## 使用注意
+
 如果不是通过微信云托管控制台部署模板代码，而是自行复制/下载模板代码后，手动新建一个服务并部署，需要在「服务设置」中补全以下环境变量，才可正常使用，否则会引发无法连接数据库，进而导致部署失败。
+
 - MYSQL_ADDRESS
 - MYSQL_PASSWORD
 - MYSQL_USERNAME
-以上三个变量的值请按实际情况填写。如果使用云托管内MySQL，可以在控制台MySQL页面获取相关信息。
-
-
+  以上三个变量的值请按实际情况填写。如果使用云托管内 MySQL，可以在控制台 MySQL 页面获取相关信息。
 
 ## License
 
