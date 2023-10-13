@@ -82,7 +82,7 @@ def get_count():
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
 
-@app.route('/evaluate_resume', methods=['POST'])
+@app.route('/api/evaluate_resume', methods=['POST'])
 def evaluate_resume():
     resume_text = request.form.get('resume_text')
     if not resume_text:
