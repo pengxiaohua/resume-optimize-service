@@ -1,9 +1,26 @@
 from datetime import datetime
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
+import os
+import requests
+
+OPENAI_API_URL = "https://api.openai.com/v1/engines/davinci/completions"
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
+def get_openai_suggestions(prompt):
+    headers = {
+        "Authorization": f"Bearer {OPENAI_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "prompt": prompt,
+        "max_tokens": 150
+    }
+    response = requests.post(OPENAI_API_URL, headers=headers, json=data)
+    return response.json().get('choices')[0].get('text').strip()
 
 
 @app.route('/')
@@ -64,3 +81,13 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+
+@app.route('/evaluate_resume', methods=['POST'])
+def evaluate_resume():
+    resume_text = request.form.get('resume_text')
+    if not resume_text:
+        return jsonify({"error": "Resume text is required"}), 400
+
+    prompt = f"请评估以下简历内容: {resume_text}"
+    evaluation = get_openai_suggestions(prompt)
+    return jsonify({"suggestions": [evaluation]})
