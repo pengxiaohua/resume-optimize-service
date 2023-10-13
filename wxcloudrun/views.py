@@ -84,6 +84,11 @@ def get_count():
 
 @app.route('/api/evaluate_resume', methods=['POST'])
 def evaluate_resume():
+
+    # 打印原始请求数据和解析后的表单数据
+    print(request.data)  # 打印原始请求数据
+    print(request.form)  # 打印解析后的表单数据
+
     resume_text = request.form.get('resume_text')
     if not resume_text:
         return jsonify({"error": "Resume text is required"}), 400
