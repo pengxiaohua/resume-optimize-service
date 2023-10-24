@@ -113,7 +113,16 @@ def evaluate_resume():
     headers = {"Content-Type": "application/json"}
 
     # 使用OpenAI的Completion API生成文本
-    response = openai.Completion.create(data=json_data, headers=headers)
+    # response = openai.Completion.create(data=json_data, headers=headers)
+
+    q = "用python实现：提示手动输入3个不同的3位数区间，输入结束后计算这3个区间的交集，并输出结果区间"
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+                {"role": "system", "content": "一个有10年Python开发经验的资深算法工程师"},
+                {"role": "user", "content": q}
+            ]
+    )
 
 
     return response.choices[0].text.strip()  # 返回生成的文本
