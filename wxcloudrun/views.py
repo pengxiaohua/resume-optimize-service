@@ -7,6 +7,7 @@ from wxcloudrun.response import make_succ_empty_response, make_succ_response, ma
 import os
 import openai
 import requests
+import json
 
 OPENAI_API_URL = "https://api.openai.com/v1/engines/davinci/completions"
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
