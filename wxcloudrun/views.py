@@ -101,7 +101,7 @@ def evaluate_resume():
 
     # 准备请求的数据
     request_data = {
-        "engine": "gpt-3.5-turbo",  # 使用gpt-3.5-turbo引擎
+        "engine": "davinci",  # 使用gpt-3.5-turbo引擎
         "prompt": "Translate the following English text to French: 'Hello, how are you?'",  # 这里是您的输入文本
         "max_tokens": 500  # 生成的文本的最大长度
     }
