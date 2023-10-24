@@ -93,8 +93,8 @@ def evaluate_resume():
     openai.api_key = os.environ.get('OPENAI_API_KEY')
 
     # resume_text = request.form.get('resume_text')
-    if not resume_text:
-        return jsonify({"error": "Resume text is required"}), 400
+    # if not resume_text:
+    #     return jsonify({"error": "Resume text is required"}), 400
 
     # prompt = f"请评估以下简历内容: {resume_text}"
 
