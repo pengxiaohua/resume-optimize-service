@@ -92,19 +92,27 @@ def evaluate_resume():
 
     openai.api_key = os.environ.get('OPENAI_API_KEY')
 
-    resume_text = request.form.get('resume_text')
+    # resume_text = request.form.get('resume_text')
     if not resume_text:
         return jsonify({"error": "Resume text is required"}), 400
 
-    prompt = f"请评估以下简历内容: {resume_text}"
-    # evaluation = get_openai_suggestions(prompt)
-    # return jsonify({"suggestions": [evaluation]})
+    # prompt = f"请评估以下简历内容: {resume_text}"
+
+    # 准备请求的数据
+    request_data = {
+        "engine": "gpt-3.5-turbo",  # 使用gpt-3.5-turbo引擎
+        "prompt": "Translate the following English text to French: 'Hello, how are you?'",  # 这里是您的输入文本
+        "max_tokens": 500  # 生成的文本的最大长度
+    }
+
+    # 将请求数据转换为JSON格式
+    json_data = json.dumps(request_data)
+
+    # 设置请求的content-type为application/json
+    headers = {"Content-Type": "application/json"}
 
     # 使用OpenAI的Completion API生成文本
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo",  # 使用Davinci引擎，您可以根据需要选择其他引擎
-        prompt=prompt,  # 这里是您的输入文本
-        max_tokens=50  # 生成的文本的最大长度
-    )
+    response = openai.Completion.create(data=json_data, headers=headers)
+
 
     return response.choices[0].text.strip()  # 返回生成的文本
