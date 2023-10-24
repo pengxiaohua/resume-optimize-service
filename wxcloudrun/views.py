@@ -76,10 +76,14 @@ def get_count():
 
 @app.route('/api/evaluate_resume', methods=['POST'])
 def evaluate_resume():
-    q = "用python实现：提示手动输入3个不同的3位数区间，输入结束后计算这3个区间的交集，并输出结果区间"
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo",  # 使用Davinci引擎，您可以根据需要选择其他引擎
-        prompt=q
-    )
+    try:
+        q = "用python实现：提示手动输入3个不同的3位数区间，输入结束后计算这3个区间的交集，并输出结果区间"
+        response = openai.Completion.create(
+            engine="gpt-3.5-turbo",  # 使用Davinci引擎，您可以根据需要选择其他引擎
+            prompt=q
+        )
 
-    return response.choices[0].text.strip()
+        return response.choices[0].text.strip()
+
+    except Exception as e:
+        return f"Error communicating with OpenAI: {str(e)}"
